@@ -50,7 +50,7 @@ export async function getFriendIds(userId: string): Promise<string[]> {
         },
     });
 
-    const friendIds = friendships.map(f =>
+    const friendIds = friendships.map((f: any) =>
         f.requesterId === userId ? f.addresseeId : f.requesterId
     );
 
