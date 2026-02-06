@@ -1,0 +1,100 @@
+.container {
+    min-height: 100vh;
+    background: var(--color-bg);
+}
+
+.header {
+    padding: var(--spacing-md);
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    background: var(--color-surface);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.backBtn {
+    background: none;
+    color: var(--color-text-primary);
+    font-size: var(--font-size-base);
+    padding: var(--spacing-xs);
+}
+
+.header h1 {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-medium);
+}
+
+.main {
+    padding: var(--spacing-md);
+}
+
+.empty {
+    text-align: center;
+    padding: var(--spacing-2xl);
+    color: var(--color-text-secondary);
+}
+
+.empty p {
+    margin-bottom: var(--spacing-lg);
+    font-size: var(--font-size-md);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: var(--spacing-md);
+}
+
+.card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: transform 0.2s ease;
+}
+
+.card:hover {
+    transform: scale(1.02);
+}
+
+.imageWrapper {
+    position: relative;
+    aspect-ratio: 3 / 4;
+    background: var(--color-bg-secondary);
+}
+
+.imageWrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.lateBadge {
+    position: absolute;
+    top: var(--spacing-xs);
+    right: var(--spacing-xs);
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 4px 8px;
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-xs);
+}
+
+.info {
+    padding: var(--spacing-sm);
+}
+
+.date {
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-primary);
+    margin-bottom: 4px;
+    font-size: var(--font-size-sm);
+}
+
+.context {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-secondary);
+}

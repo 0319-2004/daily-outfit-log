@@ -1,0 +1,60 @@
+{
+    "common": {
+        "appName": "今日の服",
+        "save": "保存",
+        "cancel": "キャンセル",
+        "confirm": "確認",
+        "delete": "削除",
+        "edit": "編集",
+        "close": "閉じる"
+    },
+    "auth": {
+        "login": "ログイン",
+        "register": "新規登録",
+        "email": "メールアドレス",
+        "username": "ユーザー名",
+        "password": "パスワード",
+        "displayName": "表示名",
+        "logout": "ログアウト"
+    },
+    "post": {
+        "takephoto": "写真を撮る",
+        "posting": "投稿中...",
+        "posted": "投稿しました",
+        "latePost": "遅れて投稿",
+        "timeRemaining": "残り時間: {{time}}",
+        "needToPost": "今日の投稿が必要です",
+        "windowExpired": "投稿時間が過ぎました（遅れて投稿できます）",
+        "faceBlur": "顔ぼかし",
+        "torsoGuide": "上半身を中心に"
+    },
+    "feed": {
+        "todaysPosts": "今日の投稿",
+        "noPostsYet": "まだ投稿がありません",
+        "yourArchive": "自分の記録"
+    },
+    "friends": {
+        "friends": "友達",
+        "addFriend": "友達を追加",
+        "pending": "承認待ち",
+        "accept": "承認",
+        "reject": "拒否",
+        "friendLimit": "友達上限: {{current}}/{{max}}"
+    },
+    "weather": {
+        "sunny": "晴れ",
+        "cloudy": "曇り",
+        "rainy": "雨",
+        "snowy": "雪"
+    },
+    "timeband": {
+        "morning": "朝",
+        "afternoon": "昼",
+        "evening": "夜",
+        "latenight": "深夜"
+    },
+    "daytype": {
+        "weekday": "平日",
+        "weekend": "週末"
+    }
+}

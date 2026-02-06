@@ -1,0 +1,99 @@
+// Database schema for Daily Outfit Log
+// Reality-first fashion logging app
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id            String   @id @default(cuid())
+  email         String   @unique
+  username      String   @unique
+  displayName   String
+  hashedPassword String
+  createdAt     DateTime @default(now())
+  
+  // Relations
+  posts         Post[]
+  dailyWindows  DailyWindow[]
+  savedPosts    SavedPost[]
+  
+  // Friendships where this user is the requester
+  friendRequestsSent     Friendship[] @relation("FriendRequester")
+  // Friendships where this user is the addressee
+  friendRequestsReceived Friendship[] @relation("FriendAddressee")
+  
+  @@map("users")
+}
+
+model Post {
+  id          String   @id @default(cuid())
+  userId      String
+  imageUrl    String
+  timestamp   DateTime @default(now())
+  weatherData String   // JSON string: { temp, condition, icon }
+  timeband    String   // 朝/昼/夜/深夜
+  dayType     String   // 平日/週末
+  isLate      Boolean  @default(false) // Posted outside window
+  createdAt   DateTime @default(now())
+  
+  // Relations
+  user        User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  savedBy     SavedPost[]
+  
+  @@map("posts")
+  @@index([userId])
+  @@index([timestamp])
+}
+
+model Friendship {
+  id          String   @id @default(cuid())
+  requesterId String
+  addresseeId String
+  status      String   // pending/accepted/rejected
+  createdAt   DateTime @default(now())
+  
+  // Relations
+  requester   User @relation("FriendRequester", fields: [requesterId], references: [id], onDelete: Cascade)
+  addressee   User @relation("FriendAddressee", fields: [addresseeId], references: [id], onDelete: Cascade)
+  
+  @@unique([requesterId, addresseeId])
+  @@map("friendships")
+  @@index([requesterId])
+  @@index([addresseeId])
+}
+
+model DailyWindow {
+  id            String   @id @default(cuid())
+  userId        String
+  date          String   // YYYY-MM-DD format
+  scheduledTime DateTime // Random time for this day
+  expiresAt     DateTime // scheduledTime + 3 minutes
+  createdAt     DateTime @default(now())
+  
+  // Relations
+  user          User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@unique([userId, date])
+  @@map("daily_windows")
+  @@index([userId])
+}
+
+model SavedPost {
+  id        String   @id @default(cuid())
+  userId    String   // Who saved it
+  postId    String   // Which post was saved
+  createdAt DateTime @default(now())
+  
+  // Relations
+  user      User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post      Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+  
+  @@unique([userId, postId])
+  @@map("saved_posts")
+  @@index([userId])
+}
