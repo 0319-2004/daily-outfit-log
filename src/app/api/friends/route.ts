@@ -31,21 +31,31 @@ export async function GET(req: NextRequest) {
         });
 
         const friends = friendships
-            .filter(f => f.status === 'accepted')
-            .map(f => {
+            .filter((f: any) => f.status === 'accepted')
+            .map((f: any) => {
                 const friend = f.requesterId === userId ? f.addressee : f.requester;
                 return { ...friend, friendshipId: f.id };
             });
 
-        const pending = friendships
-            .filter(f => f.status === 'pending')
-            .map(f => ({
-                friendshipId: f.id,
-                type: f.requesterId === userId ? 'sent' : 'received',
-                user: f.requesterId === userId ? f.addressee : f.requester,
+        const pendingReceived = friendships
+            .filter((f: any) => f.status === 'pending' && f.addresseeId === userId)
+            .map((f: any) => ({
+                id: f.id,
+                displayName: f.requester.displayName,
+                username: f.requester.username,
+                status: f.status,
             }));
 
-        return NextResponse.json({ friends, pending, limit: FRIEND_LIMIT });
+        const pendingSent = friendships
+            .filter((f: any) => f.status === 'pending' && f.requesterId === userId)
+            .map((f: any) => ({
+                id: f.id,
+                displayName: f.addressee.displayName,
+                username: f.addressee.username,
+                status: f.status,
+            }));
+
+        return NextResponse.json({ friends, pendingReceived, pendingSent, limit: FRIEND_LIMIT });
     } catch (error) {
         console.error('Get friends error:', error);
         return NextResponse.json({ error: '友達一覧の取得に失敗しました' }, { status: 500 });
