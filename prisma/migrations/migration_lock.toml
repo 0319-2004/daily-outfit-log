@@ -1,0 +1,4 @@
+# Prisma Migrate lockfile v1
+# This file should be committed into your repository.
+
+provider = "postgresql"
